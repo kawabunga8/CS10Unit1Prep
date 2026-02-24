@@ -19,9 +19,15 @@ export function FlashcardsView(section) {
       <div class="flashcard">
         <div class="flashcard__term">${escapeHtml(c.term)}</div>
         <div class="flashcard__def">${showDef ? escapeHtml(c.definition) : '<span class="small">(Click Reveal)</span>'}</div>
-        ${c.example ? `<div class="hr"></div><div class="code">${escapeHtml(c.example)}</div>` : ''}
+        ${showDef && c.example ? `<div class="hr"></div><div class="code">${escapeHtml(c.example)}</div>` : ''}
 
-        ${drawables.length ? `
+        ${showDef && c.example && !drawables.length ? `
+          <div class="preview">
+            <div class="preview__title">No shape preview for this card (it may be a concept-only card).</div>
+          </div>
+        ` : ''}
+
+        ${showDef && drawables.length ? `
           <div class="preview">
             <div class="preview__title">400×400 Canvas Preview (0,0 is top-left)</div>
             <canvas class="canvas400" width="400" height="400" data-preview="canvas"></canvas>
