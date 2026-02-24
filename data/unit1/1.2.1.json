@@ -21,7 +21,7 @@
     {
       "term": "Gradient fill",
       "definition": "A gradient blends from one color to another. Basic usage: fill=gradient('color1', 'color2').",
-      "example": "Circle(200, 200, 60, fill=gradient('dodgerBlue', 'limeGreen'))"
+      "example": "Circle(100, 200, 100, fill=gradient('dodgerBlue', 'limeGreen'))\nStar(300, 200, 100, 5, fill=gradient('limeGreen', 'dodgerBlue'))"
     },
     {
       "term": "Gradient start",
