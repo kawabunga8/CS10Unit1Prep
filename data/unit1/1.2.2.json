@@ -1,0 +1,27 @@
+{
+  "id": "1.2.2",
+  "title": "Practice Exercises",
+  "description": "Extra practice: color choices, gradients, and reading shape parameters.",
+  "flashcards": [
+    {
+      "term": "Contrast",
+      "definition": "Good design uses contrast so important objects stand out from the background.",
+      "example": "# Light stars on a dark sky are easier to see"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-122-q1",
+      "prompt": "If the background is dark, which star color will usually be easiest to see?",
+      "options": [
+        "A light color (like white or yellow)",
+        "A dark color (like black)",
+        "Any color is the same",
+        "No color works"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: high contrast helps visibility.",
+      "feedbackIncorrect": "High contrast helps—light objects show up on dark backgrounds."
+    }
+  ]
+}

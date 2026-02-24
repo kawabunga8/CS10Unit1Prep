@@ -1,0 +1,27 @@
+{
+  "id": "1.4.3",
+  "title": "Practice Exercises",
+  "description": "Extra practice: shapes + properties.",
+  "flashcards": [
+    {
+      "term": "Property changes",
+      "definition": "On tests, you might be asked what happens when a property changes (fill, borderWidth, opacity, rotateAngle).",
+      "example": "# If opacity decreases, the shape becomes more transparent."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-143-q1",
+      "prompt": "Which property would make an outline thicker?",
+      "options": [
+        "borderWidth",
+        "fill",
+        "centerY",
+        "radius"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: borderWidth controls outline thickness.",
+      "feedbackIncorrect": "borderWidth controls the thickness of the outline."
+    }
+  ]
+}

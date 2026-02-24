@@ -1,0 +1,27 @@
+{
+  "id": "1.3.2",
+  "title": "Practice Exercises",
+  "description": "Extra practice: rectangles, layering, and opacity.",
+  "flashcards": [
+    {
+      "term": "Layering + opacity",
+      "definition": "Draw order still matters, but opacity lets you see shapes underneath.",
+      "example": "# Draw circle first, then a translucent rectangle on top"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-132-q1",
+      "prompt": "If a rectangle is drawn after a circle, where is the rectangle?",
+      "options": [
+        "On top of the circle",
+        "Behind the circle",
+        "It disappears",
+        "It moves the circle"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: later shapes are on top.",
+      "feedbackIncorrect": "Draw order matters: later shapes appear on top."
+    }
+  ]
+}

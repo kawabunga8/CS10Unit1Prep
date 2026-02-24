@@ -1,0 +1,50 @@
+{
+  "id": "1.3.1",
+  "title": "See-Through Rectangles",
+  "description": "Rectangles and opacity (transparency). Focus: what opacity means and how it affects overlapping shapes.",
+  "flashcards": [
+    {
+      "term": "Opacity",
+      "definition": "Opacity is how see-through something is. Low opacity = more transparent. High opacity = more solid.",
+      "example": "# Opacity examples:\n# 0   = fully transparent\n# 100 = fully opaque (solid)"
+    },
+    {
+      "term": "Overlapping with opacity",
+      "definition": "Transparent rectangles let you see shapes behind them.",
+      "example": "Circle(200, 200, 80)\n# then draw a semi-transparent Rect over it"
+    },
+    {
+      "term": "Rect(left, top, width, height)",
+      "definition": "A rectangle is positioned by its top-left corner and sized by width/height.",
+      "example": "Rect(50, 50, 300, 200)"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-131-q1",
+      "prompt": "What does opacity control?",
+      "options": [
+        "How see-through a shape is",
+        "Where the shape is on the canvas",
+        "How big the shape is",
+        "Whether code has commas"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: opacity controls transparency.",
+      "feedbackIncorrect": "Opacity controls how see-through (transparent) a shape is."
+    },
+    {
+      "id": "u1-131-q2",
+      "prompt": "If you lower opacity, what happens?",
+      "options": [
+        "The shape becomes more transparent",
+        "The shape becomes bigger",
+        "The shape moves right",
+        "The shape changes into a circle"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: lower opacity = more see-through.",
+      "feedbackIncorrect": "Lower opacity makes a shape more transparent (see-through)."
+    }
+  ]
+}

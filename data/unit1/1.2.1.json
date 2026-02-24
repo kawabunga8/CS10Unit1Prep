@@ -1,0 +1,68 @@
+{
+  "id": "1.2.1",
+  "title": "Star-ting to Color Well",
+  "description": "Stars, color basics, and gradients. Focus: reading function parameters and understanding color choices.",
+  "flashcards": [
+    {
+      "term": "Color names",
+      "definition": "Many environments allow colors like 'red', 'blue', 'green'. Using the right spelling/case matters.",
+      "example": "# Example (style varies by environment)\nCircle(200, 200, 50)\n# then set fill to 'red'"
+    },
+    {
+      "term": "RGB idea",
+      "definition": "Many systems represent color using RGB: red, green, blue values (often 0–255).",
+      "example": "# RGB(255, 0, 0) is red\n# RGB(0, 0, 255) is blue"
+    },
+    {
+      "term": "Gradient",
+      "definition": "A gradient smoothly blends between colors (ex: sky that fades from darker to lighter).",
+      "example": "# A gradient background is often used for sky"
+    },
+    {
+      "term": "Star shape",
+      "definition": "A star is a shape like a circle/rect but with its own parameters (position + size).",
+      "example": "# Example (exact function name may vary)\nStar(200, 200, 40)"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-121-q1",
+      "prompt": "Which description best matches a gradient?",
+      "options": [
+        "A smooth blend between colors",
+        "A single solid color",
+        "A pattern of stripes",
+        "A shape that moves"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: gradients blend between colors.",
+      "feedbackIncorrect": "A gradient is a smooth blend between colors."
+    },
+    {
+      "id": "u1-121-q2",
+      "prompt": "In RGB(255, 0, 0), which color is strongest?",
+      "options": [
+        "Red",
+        "Green",
+        "Blue",
+        "None"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: red is 255 (max) while the others are 0.",
+      "feedbackIncorrect": "Red is strongest because its value is 255."
+    },
+    {
+      "id": "u1-121-q3",
+      "prompt": "Why might you use a gradient for a sky?",
+      "options": [
+        "It can look more realistic and interesting than a flat color",
+        "It makes shapes move",
+        "It changes the coordinate system",
+        "It fixes syntax errors"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Yes: gradients can make backgrounds look better.",
+      "feedbackIncorrect": "Gradients are used for visual style (smoother backgrounds)."
+    }
+  ]
+}

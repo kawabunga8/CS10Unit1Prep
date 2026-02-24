@@ -1,0 +1,68 @@
+{
+  "id": "1.1.2",
+  "title": "Drawing a Landscape",
+  "description": "Build a picture by combining shapes. Focus: coordinates, layering order (what gets drawn on top), and reading shape parameters.",
+  "flashcards": [
+    {
+      "term": "Layering (draw order)",
+      "definition": "Shapes drawn later appear on top of shapes drawn earlier.",
+      "example": "Circle(200, 200, 120)\nRect(0, 300, 400, 100)  # this rectangle will cover the bottom of the circle"
+    },
+    {
+      "term": "Composition",
+      "definition": "A landscape scene is often built from simple shapes: sky, ground, sun, clouds, mountains, trees.",
+      "example": "# sky (background)\nRect(0, 0, 400, 400)\n# ground\nRect(0, 280, 400, 120)\n# sun\nCircle(320, 80, 40)"
+    },
+    {
+      "term": "Rect(left, top, width, height)",
+      "definition": "Draws a rectangle. left/top is the top-left corner. width/height control size.",
+      "example": "Rect(0, 280, 400, 120)"
+    },
+    {
+      "term": "Coordinate reminder",
+      "definition": "(0,0) is top-left. x increases right. y increases down.",
+      "example": "# sky is near y=0\n# ground is near y=400"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-112-q1",
+      "prompt": "If two shapes overlap, which one appears on top?",
+      "options": [
+        "The shape drawn later (lower in the code)",
+        "The bigger shape",
+        "The shape drawn first",
+        "The shape with the larger x value"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Yes: draw order matters. Later shapes appear on top.",
+      "feedbackIncorrect": "Draw order matters: shapes drawn later appear on top."
+    },
+    {
+      "id": "u1-112-q2",
+      "prompt": "In Rect(0, 280, 400, 120), what do 400 and 120 represent?",
+      "options": [
+        "width and height",
+        "centerX and centerY",
+        "radius and opacity",
+        "x and y coordinates"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: Rect uses (left, top, width, height).",
+      "feedbackIncorrect": "Rect uses (left, top, width, height)."
+    },
+    {
+      "id": "u1-112-q3",
+      "prompt": "If you want the ground at the bottom of the 400×400 canvas, which y value should it be near?",
+      "options": [
+        "Near 400",
+        "Near 0",
+        "Near 200",
+        "Near -100"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: bigger y is lower (toward the bottom).",
+      "feedbackIncorrect": "Bigger y is lower on the canvas, so bottom is near y=400."
+    }
+  ]
+}

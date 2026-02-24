@@ -1,0 +1,55 @@
+{
+  "id": "1.4.1",
+  "title": "Shapes Galore!",
+  "description": "More shapes and their parameters. Focus: reading code and understanding what each number controls.",
+  "flashcards": [
+    {
+      "term": "Oval / Ellipse",
+      "definition": "An oval is like a stretched circle. It usually needs position + width + height.",
+      "example": "Oval(200, 200, 160, 80)"
+    },
+    {
+      "term": "Line",
+      "definition": "A line is defined by two points: (x1, y1) and (x2, y2).",
+      "example": "Line(50, 50, 350, 50)"
+    },
+    {
+      "term": "Polygon",
+      "definition": "A polygon is a shape with multiple corners (points).",
+      "example": "# Example: triangle\nPolygon(200, 80, 120, 280, 280, 280)"
+    },
+    {
+      "term": "Label/Text",
+      "definition": "Text can be drawn on the canvas (useful for titles and instructions).",
+      "example": "Label('Hello', 200, 30)"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-141-q1",
+      "prompt": "A line uses two points. How many numbers does that usually require?",
+      "options": [
+        "4 (x1, y1, x2, y2)",
+        "3",
+        "2",
+        "1"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: a line uses 2 points → 4 numbers.",
+      "feedbackIncorrect": "A line uses (x1,y1) and (x2,y2), so 4 numbers."
+    },
+    {
+      "id": "u1-141-q2",
+      "prompt": "Which shape is best described as a 'stretched circle'?",
+      "options": [
+        "Oval / Ellipse",
+        "Line",
+        "Polygon",
+        "Label"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: an oval is a stretched circle.",
+      "feedbackIncorrect": "An oval/ellipse is like a stretched circle."
+    }
+  ]
+}

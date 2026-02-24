@@ -1,0 +1,55 @@
+{
+  "id": "1.4.2",
+  "title": "Properties Galore!",
+  "description": "Shape properties change how shapes look. Focus: fill, border, rotateAngle, opacity.",
+  "flashcards": [
+    {
+      "term": "fill",
+      "definition": "Fill is the inside color of a shape.",
+      "example": "# Example (style varies)\n# shape.fill = 'red'"
+    },
+    {
+      "term": "border",
+      "definition": "Border (outline) is the line around a shape. Border width controls thickness.",
+      "example": "# shape.border = 'black'\n# shape.borderWidth = 4"
+    },
+    {
+      "term": "rotateAngle",
+      "definition": "rotateAngle rotates a shape (in degrees).",
+      "example": "# shape.rotateAngle = 45"
+    },
+    {
+      "term": "opacity",
+      "definition": "Opacity changes transparency (see-through).",
+      "example": "# shape.opacity = 50"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-142-q1",
+      "prompt": "Which property controls the inside color of a shape?",
+      "options": [
+        "fill",
+        "borderWidth",
+        "rotateAngle",
+        "centerX"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: fill controls the inside color.",
+      "feedbackIncorrect": "Fill controls the inside color of a shape."
+    },
+    {
+      "id": "u1-142-q2",
+      "prompt": "What does rotateAngle do?",
+      "options": [
+        "Rotates a shape",
+        "Makes it bigger",
+        "Moves it down",
+        "Fixes missing commas"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: rotateAngle rotates a shape.",
+      "feedbackIncorrect": "rotateAngle rotates a shape (usually in degrees)."
+    }
+  ]
+}
