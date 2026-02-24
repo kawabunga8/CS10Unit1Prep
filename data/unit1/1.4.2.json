@@ -1,55 +1,96 @@
 {
   "id": "1.4.2",
   "title": "Properties Galore!",
-  "description": "Shape properties change how shapes look. Focus: fill, border, rotateAngle, opacity.",
+  "description": "Properties: border, borderWidth, lineWidth (lines), dashes, rotateAngle, opacity, roundness (stars), plus label properties.",
   "flashcards": [
     {
-      "term": "fill",
-      "definition": "Fill is the inside color of a shape.",
-      "example": "# Example (style varies)\n# shape.fill = 'red'"
+      "term": "border + borderWidth",
+      "definition": "Adds an outline around a shape. border is the color; borderWidth is the thickness (number > 0).",
+      "example": "Rect(100, 150, 200, 100, fill='dodgerBlue', border='black', borderWidth=2)"
     },
     {
-      "term": "border",
-      "definition": "Border (outline) is the line around a shape. Border width controls thickness.",
-      "example": "# shape.border = 'black'\n# shape.borderWidth = 4"
+      "term": "lineWidth (lines only)",
+      "definition": "Lines do not use border. Use lineWidth to make a line thicker/thinner.",
+      "example": "Line(50, 50, 350, 50, lineWidth=6)"
+    },
+    {
+      "term": "dashes",
+      "definition": "Makes a line or a border dashed. dashes is True or False.",
+      "example": "Line(50, 100, 350, 100, dashes=True)"
     },
     {
       "term": "rotateAngle",
-      "definition": "rotateAngle rotates a shape (in degrees).",
-      "example": "# shape.rotateAngle = 45"
+      "definition": "Rotates a shape clockwise by a number of degrees.",
+      "example": "Rect(200, 200, 120, 60, rotateAngle=45)"
     },
     {
       "term": "opacity",
-      "definition": "Opacity changes transparency (see-through).",
-      "example": "# shape.opacity = 50"
+      "definition": "0–100. 100 is solid; 0 is invisible.",
+      "example": "Circle(200, 200, 30, fill='dodgerBlue', opacity=80)"
+    },
+    {
+      "term": "roundness (stars only)",
+      "definition": "0–100. Makes star points more rounded.",
+      "example": "Star(200, 200, 30, 5, roundness=80)"
+    },
+    {
+      "term": "Label properties",
+      "definition": "Labels can use: size (>0), bold (True/False), italic (True/False), font (one of the provided fonts).",
+      "example": "Label('Title', 200, 30, size=32, bold=True, italic=False, font='cinzel')"
     }
   ],
   "quiz": [
     {
       "id": "u1-142-q1",
-      "prompt": "Which property controls the inside color of a shape?",
+      "prompt": "Which property makes an outline thicker?",
       "options": [
-        "fill",
         "borderWidth",
-        "rotateAngle",
-        "centerX"
+        "fill",
+        "centerX",
+        "points"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: fill controls the inside color.",
-      "feedbackIncorrect": "Fill controls the inside color of a shape."
+      "feedbackCorrect": "Correct: borderWidth controls outline thickness.",
+      "feedbackIncorrect": "borderWidth controls the thickness of the outline."
     },
     {
       "id": "u1-142-q2",
-      "prompt": "What does rotateAngle do?",
+      "prompt": "Which property makes a line thicker?",
       "options": [
-        "Rotates a shape",
-        "Makes it bigger",
-        "Moves it down",
-        "Fixes missing commas"
+        "lineWidth",
+        "borderWidth",
+        "opacity",
+        "radius"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: rotateAngle rotates a shape.",
-      "feedbackIncorrect": "rotateAngle rotates a shape (usually in degrees)."
+      "feedbackCorrect": "Correct: lines use lineWidth.",
+      "feedbackIncorrect": "Lines use lineWidth (not border/borderWidth)."
+    },
+    {
+      "id": "u1-142-q3",
+      "prompt": "What does rotateAngle do?",
+      "options": [
+        "Rotates a shape clockwise by degrees",
+        "Changes the radius",
+        "Moves a shape to the right",
+        "Adds more points to a star"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: rotateAngle rotates a shape (clockwise).",
+      "feedbackIncorrect": "rotateAngle rotates a shape clockwise by degrees."
+    },
+    {
+      "id": "u1-142-q4",
+      "prompt": "What values can dashes be?",
+      "options": [
+        "True or False",
+        "0 to 100",
+        "Any color name",
+        "Only numbers"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: dashes is True/False.",
+      "feedbackIncorrect": "dashes is a boolean: True or False."
     }
   ]
 }

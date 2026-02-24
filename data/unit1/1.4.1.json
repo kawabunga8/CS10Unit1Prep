@@ -1,55 +1,73 @@
 {
   "id": "1.4.1",
   "title": "Shapes Galore!",
-  "description": "More shapes and their parameters. Focus: reading code and understanding what each number controls.",
+  "description": "Ovals, lines, and labels. Focus: what each parameter means.",
   "flashcards": [
     {
-      "term": "Oval / Ellipse",
-      "definition": "An oval is like a stretched circle. It usually needs position + width + height.",
-      "example": "Oval(200, 200, 160, 80)"
+      "term": "Oval(centerX, centerY, width, height)",
+      "definition": "Draws an oval centered at (centerX, centerY). width is total left-to-right size, height is total top-to-bottom size.",
+      "example": "Oval(250, 150, 50, 250)"
     },
     {
-      "term": "Line",
-      "definition": "A line is defined by two points: (x1, y1) and (x2, y2).",
-      "example": "Line(50, 50, 350, 50)"
+      "term": "Line(x1, y1, x2, y2)",
+      "definition": "Draws a line from (x1, y1) to (x2, y2).",
+      "example": "Line(150, 75, 150, 320)"
     },
     {
-      "term": "Polygon",
-      "definition": "A polygon is a shape with multiple corners (points).",
-      "example": "# Example: triangle\nPolygon(200, 80, 120, 280, 280, 280)"
-    },
-    {
-      "term": "Label/Text",
-      "definition": "Text can be drawn on the canvas (useful for titles and instructions).",
+      "term": "Label(value, centerX, centerY)",
+      "definition": "Draws text on the canvas. If value contains letters, it must be in quotes.",
       "example": "Label('Hello', 200, 30)"
+    },
+    {
+      "term": "Label properties (examples)",
+      "definition": "Labels can have properties like size, bold, italic, and font.",
+      "example": "Label('Hi', 200, 30, size=30, bold=True, font='orbitron')"
+    },
+    {
+      "term": "Label font options",
+      "definition": "Common font values: 'arial', 'monospace', 'caveat', 'cinzel', 'montserrat', 'grenze', 'sacramento', 'orbitron'.",
+      "example": "Label('Title', 200, 30, font='montserrat')"
     }
   ],
   "quiz": [
     {
       "id": "u1-141-q1",
-      "prompt": "A line uses two points. How many numbers does that usually require?",
+      "prompt": "What do the numbers mean in Oval(centerX, centerY, width, height)?",
       "options": [
-        "4 (x1, y1, x2, y2)",
-        "3",
-        "2",
-        "1"
+        "The center position and the oval's width/height",
+        "The top-left corner and the oval's radius",
+        "The bottom-right corner and opacity",
+        "The number of star points"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: a line uses 2 points → 4 numbers.",
-      "feedbackIncorrect": "A line uses (x1,y1) and (x2,y2), so 4 numbers."
+      "feedbackCorrect": "Correct: an oval is centered at (centerX, centerY) with the given width and height.",
+      "feedbackIncorrect": "Oval uses centerX, centerY, width, height."
     },
     {
       "id": "u1-141-q2",
-      "prompt": "Which shape is best described as a 'stretched circle'?",
+      "prompt": "Line(x1, y1, x2, y2) draws…",
       "options": [
-        "Oval / Ellipse",
-        "Line",
-        "Polygon",
-        "Label"
+        "From (x1, y1) to (x2, y2)",
+        "A circle with radius x2",
+        "A rectangle from (0,0) to (x2,y2)",
+        "A star with y2 points"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: an oval is a stretched circle.",
-      "feedbackIncorrect": "An oval/ellipse is like a stretched circle."
+      "feedbackCorrect": "Correct: a line uses two endpoints.",
+      "feedbackIncorrect": "A line uses two endpoints: (x1,y1) and (x2,y2)."
+    },
+    {
+      "id": "u1-141-q3",
+      "prompt": "Which Label value must be in quotes?",
+      "options": [
+        "Label('Hello', 200, 30)",
+        "Label(123, 200, 30)",
+        "Label(7, 10, 10)",
+        "Label(0, 0, 0)"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: if it contains letters, it must be in quotes.",
+      "feedbackIncorrect": "Labels with letters must be inside quotes like 'Hello'."
     }
   ]
 }

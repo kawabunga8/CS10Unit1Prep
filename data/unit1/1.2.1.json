@@ -1,68 +1,86 @@
 {
   "id": "1.2.1",
   "title": "Star-ting to Color Well",
-  "description": "Stars, color basics, and gradients. Focus: reading function parameters and understanding color choices.",
+  "description": "Stars and gradients. Focus: Star(centerX, centerY, radius, points), roundness (0–100), and gradient fill.",
   "flashcards": [
     {
-      "term": "Color names",
-      "definition": "Many environments allow colors like 'red', 'blue', 'green'. Using the right spelling/case matters.",
-      "example": "# Example (style varies by environment)\nCircle(200, 200, 50)\n# then set fill to 'red'"
+      "term": "Star(centerX, centerY, radius, points)",
+      "definition": "Draws a star. The first 3 numbers are like Circle (centerX, centerY, radius). The last number is how many points the star has.",
+      "example": "Star(300, 200, 100, 5)"
     },
     {
-      "term": "RGB idea",
-      "definition": "Many systems represent color using RGB: red, green, blue values (often 0–255).",
-      "example": "# RGB(255, 0, 0) is red\n# RGB(0, 0, 255) is blue"
+      "term": "Star points errors",
+      "definition": "A Star must include the points value, and it must be at least 3. Fewer than 3 points causes an error.",
+      "example": "# error: missing points\nStar(200, 200, 50)\n\n# error: too few points\nStar(200, 200, 50, 2)"
     },
     {
-      "term": "Gradient",
-      "definition": "A gradient smoothly blends between colors (ex: sky that fades from darker to lighter).",
-      "example": "# A gradient background is often used for sky"
+      "term": "roundness (stars only)",
+      "definition": "roundness changes how rounded the star's points are. It can be any number from 0 to 100.",
+      "example": "Star(200, 200, 60, 5, fill='dodgerBlue', roundness=50)"
     },
     {
-      "term": "Star shape",
-      "definition": "A star is a shape like a circle/rect but with its own parameters (position + size).",
-      "example": "# Example (exact function name may vary)\nStar(200, 200, 40)"
+      "term": "Gradient fill",
+      "definition": "A gradient blends from one color to another. Basic usage: fill=gradient('color1', 'color2').",
+      "example": "Circle(200, 200, 60, fill=gradient('dodgerBlue', 'limeGreen'))"
+    },
+    {
+      "term": "Gradient start",
+      "definition": "You can choose where the first color starts using start='left', 'right', 'top', 'bottom', or diagonals like 'left-top'.",
+      "example": "Circle(200, 200, 60, fill=gradient('dodgerBlue', 'limeGreen', start='left-top'))"
     }
   ],
   "quiz": [
     {
       "id": "u1-121-q1",
-      "prompt": "Which description best matches a gradient?",
+      "prompt": "In Star(80, 120, 65, 9), what does the LAST number mean?",
       "options": [
-        "A smooth blend between colors",
-        "A single solid color",
-        "A pattern of stripes",
-        "A shape that moves"
+        "How many points the star has",
+        "The radius (size)",
+        "The x-coordinate of the center",
+        "The y-coordinate of the center"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: gradients blend between colors.",
-      "feedbackIncorrect": "A gradient is a smooth blend between colors."
+      "feedbackCorrect": "Correct: the last number is the number of points.",
+      "feedbackIncorrect": "The last number is the number of points on the star."
     },
     {
       "id": "u1-121-q2",
-      "prompt": "In RGB(255, 0, 0), which color is strongest?",
+      "prompt": "Which star will cause an error?",
       "options": [
-        "Red",
-        "Green",
-        "Blue",
-        "None"
+        "Star(200, 200, 50, 2)",
+        "Star(200, 200, 50, 3)",
+        "Star(200, 200, 50, 5)",
+        "Star(200, 200, 50, 10)"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: red is 255 (max) while the others are 0.",
-      "feedbackIncorrect": "Red is strongest because its value is 255."
+      "feedbackCorrect": "Correct: points must be at least 3.",
+      "feedbackIncorrect": "Points must be at least 3."
     },
     {
       "id": "u1-121-q3",
-      "prompt": "Why might you use a gradient for a sky?",
+      "prompt": "What range of values can roundness be?",
       "options": [
-        "It can look more realistic and interesting than a flat color",
-        "It makes shapes move",
-        "It changes the coordinate system",
-        "It fixes syntax errors"
+        "0 to 100",
+        "1 to 10",
+        "0 to 255",
+        "Any negative number"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Yes: gradients can make backgrounds look better.",
-      "feedbackIncorrect": "Gradients are used for visual style (smoother backgrounds)."
+      "feedbackCorrect": "Correct: roundness is between 0 and 100.",
+      "feedbackIncorrect": "roundness can be any number from 0 to 100."
+    },
+    {
+      "id": "u1-121-q4",
+      "prompt": "Which best describes a gradient?",
+      "options": [
+        "A smooth blend between colors",
+        "A single solid color",
+        "A shape that rotates",
+        "A syntax error"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: gradients blend between colors.",
+      "feedbackIncorrect": "A gradient blends from one color to another."
     }
   ]
 }

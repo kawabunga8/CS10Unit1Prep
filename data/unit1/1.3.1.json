@@ -1,50 +1,99 @@
 {
   "id": "1.3.1",
   "title": "See-Through Rectangles",
-  "description": "Rectangles and opacity (transparency). Focus: what opacity means and how it affects overlapping shapes.",
+  "description": "Rectangles and opacity. Focus: Rect(left, top, width, height), width/height subtraction, and opacity (0–100).",
   "flashcards": [
     {
-      "term": "Opacity",
-      "definition": "Opacity is how see-through something is. Low opacity = more transparent. High opacity = more solid.",
-      "example": "# Opacity examples:\n# 0   = fully transparent\n# 100 = fully opaque (solid)"
-    },
-    {
-      "term": "Overlapping with opacity",
-      "definition": "Transparent rectangles let you see shapes behind them.",
-      "example": "Circle(200, 200, 80)\n# then draw a semi-transparent Rect over it"
-    },
-    {
       "term": "Rect(left, top, width, height)",
-      "definition": "A rectangle is positioned by its top-left corner and sized by width/height.",
-      "example": "Rect(50, 50, 300, 200)"
+      "definition": "Draws a rectangle. The first two numbers are the top-left corner (left, top). The third and fourth numbers are width and height.",
+      "example": "Rect(35, 175, 270, 120)"
+    },
+    {
+      "term": "Rect is not centered",
+      "definition": "Unlike Circle, a Rect uses its top-left corner (left, top), not centerX/centerY.",
+      "example": "Circle(200, 200, 50)\nRect(200, 200, 100, 60)  # this rectangle starts at (200,200)" 
+    },
+    {
+      "term": "Finding width from corners",
+      "definition": "Width = rightX − leftX (y values don't matter for width).",
+      "example": "# leftX=50, rightX=350\n# width = 350 - 50 = 300"
+    },
+    {
+      "term": "Finding height from corners",
+      "definition": "Height = bottomY − topY (x values don't matter for height).",
+      "example": "# topY=50, bottomY=150\n# height = 150 - 50 = 100"
+    },
+    {
+      "term": "opacity (0–100)",
+      "definition": "Opacity controls how solid/see-through a shape is. 100 = solid, 0 = invisible.",
+      "example": "Rect(100, 150, 200, 100, fill='dodgerBlue', opacity=80)"
     }
   ],
   "quiz": [
     {
       "id": "u1-131-q1",
+      "prompt": "Which describes Rect(left, top, width, height)?",
+      "options": [
+        "left/top is the top-left corner; width/height control size",
+        "left/top is the center; width/height are the radius",
+        "left/top is bottom-right corner; width/height are colors",
+        "Rect uses centerX, centerY, radius"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: Rect uses the top-left corner plus width and height.",
+      "feedbackIncorrect": "Rect uses the top-left corner (left, top) plus width and height."
+    },
+    {
+      "id": "u1-131-q2",
+      "prompt": "What would the width be if left-top is (100, 50) and right-top is (275, 50)?",
+      "options": [
+        "275 - 100",
+        "275 - 50",
+        "100 - 275",
+        "50 - 50"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: width is rightX - leftX.",
+      "feedbackIncorrect": "Width is rightX - leftX (275 - 100)."
+    },
+    {
+      "id": "u1-131-q3",
+      "prompt": "What would the height be if left-top is (100, 50) and left-bottom is (100, 150)?",
+      "options": [
+        "150 - 50",
+        "50 - 150",
+        "100 - 50",
+        "100 - 100"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: height is bottomY - topY.",
+      "feedbackIncorrect": "Height is bottomY - topY (150 - 50)."
+    },
+    {
+      "id": "u1-131-q4",
       "prompt": "What does opacity control?",
       "options": [
         "How see-through a shape is",
         "Where the shape is on the canvas",
         "How big the shape is",
-        "Whether code has commas"
+        "How many points a star has"
       ],
       "answerIndex": 0,
       "feedbackCorrect": "Correct: opacity controls transparency.",
       "feedbackIncorrect": "Opacity controls how see-through (transparent) a shape is."
     },
     {
-      "id": "u1-131-q2",
-      "prompt": "If you lower opacity, what happens?",
+      "id": "u1-131-q5",
+      "prompt": "Which opacity value makes a shape invisible?",
       "options": [
-        "The shape becomes more transparent",
-        "The shape becomes bigger",
-        "The shape moves right",
-        "The shape changes into a circle"
+        "0",
+        "25",
+        "80",
+        "100"
       ],
       "answerIndex": 0,
-      "feedbackCorrect": "Correct: lower opacity = more see-through.",
-      "feedbackIncorrect": "Lower opacity makes a shape more transparent (see-through)."
+      "feedbackCorrect": "Correct: opacity 0 means fully transparent (invisible).",
+      "feedbackIncorrect": "Opacity 0 is fully transparent (invisible)."
     }
   ]
 }
