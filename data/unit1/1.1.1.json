@@ -1,0 +1,141 @@
+{
+  "id": "1.1.1",
+  "title": "Getting Started",
+  "description": "Circles, parameters, canvas coordinates, and common errors.",
+  "flashcards": [
+    {
+      "term": "Circle(centerX, centerY, radius)",
+      "definition": "Draws a circle on the canvas. It needs THREE numbers: centerX, centerY, radius.",
+      "example": "Circle(200, 200, 150)"
+    },
+    {
+      "term": "centerX",
+      "definition": "The x-coordinate of the circle's center. Bigger centerX moves the circle to the right.",
+      "example": "Circle(300, 200, 50)  # center is more to the right"
+    },
+    {
+      "term": "centerY",
+      "definition": "The y-coordinate of the circle's center. Bigger centerY moves the circle down.",
+      "example": "Circle(200, 300, 50)  # center is lower"
+    },
+    {
+      "term": "radius",
+      "definition": "How big the circle is. Bigger radius makes the circle bigger.",
+      "example": "Circle(200, 200, 120)"
+    },
+    {
+      "term": "Canvas coordinates",
+      "definition": "The canvas uses (x, y) coordinates. (0,0) is the TOP-LEFT corner.",
+      "example": "# (0,0) is top-left\n# x increases to the right\n# y increases down"
+    },
+    {
+      "term": "400-by-400 canvas",
+      "definition": "The canvas is 400 wide and 400 tall, so (400,400) is the bottom-right corner.",
+      "example": "# middle is around (200, 200)"
+    },
+    {
+      "term": "Case matters",
+      "definition": "Circle is not the same as circle. Use the correct capitalization.",
+      "example": "Circle(200,200,50)  # correct\ncircle(200,200,50)  # error"
+    },
+    {
+      "term": "Commas + parentheses",
+      "definition": "Arguments must be inside parentheses and separated by commas.",
+      "example": "Circle(100, 200, 50)  # ok\nCircle(100 200 50)   # error"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "u1-111-q1",
+      "prompt": "In Circle(100, 200, 50), what does the THIRD number control?",
+      "options": [
+        "How big or small the circle is",
+        "Moves the circle left or right",
+        "Moves the circle up or down",
+        "Changes the circle's color"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: the 3rd number is the radius (size).",
+      "feedbackIncorrect": "The 3rd number is the radius (size)."
+    },
+    {
+      "id": "u1-111-q2",
+      "prompt": "Where is (0, 0) on the canvas?",
+      "options": [
+        "Top-left",
+        "Center",
+        "Bottom-left",
+        "Top-right"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Yes: (0,0) is top-left in this canvas.",
+      "feedbackIncorrect": "In this canvas, (0,0) is top-left."
+    },
+    {
+      "id": "u1-111-q3",
+      "prompt": "If you increase centerX, what happens to the circle?",
+      "options": [
+        "It moves right",
+        "It moves left",
+        "It moves up",
+        "It gets bigger"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: x increases to the right.",
+      "feedbackIncorrect": "x increases to the right, so bigger centerX moves right."
+    },
+    {
+      "id": "u1-111-q4",
+      "prompt": "If you increase centerY, what happens to the circle?",
+      "options": [
+        "It moves down",
+        "It moves up",
+        "It moves right",
+        "It gets smaller"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: y increases down on this canvas.",
+      "feedbackIncorrect": "y increases down, so bigger centerY moves down."
+    },
+    {
+      "id": "u1-111-q5",
+      "prompt": "Which line will cause an error because of capitalization?",
+      "options": [
+        "circle(200, 200, 50)",
+        "Circle(200, 200, 50)",
+        "Circle(0, 0, 10)",
+        "Circle(400, 400, 10)"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: Circle must be capitalized.",
+      "feedbackIncorrect": "The error is the lowercase 'circle'—case matters."
+    },
+    {
+      "id": "u1-111-q6",
+      "prompt": "What is wrong with this code?",
+      "code": "Circle(100 200 50)",
+      "options": [
+        "Missing commas between the numbers",
+        "Needs 4 numbers",
+        "Circle must be lowercase",
+        "The radius must come first"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Correct: the numbers must be separated by commas.",
+      "feedbackIncorrect": "The problem is missing commas between the numbers."
+    },
+    {
+      "id": "u1-111-q7",
+      "prompt": "How many numbers does Circle(...) need?",
+      "options": [
+        "3",
+        "2",
+        "1",
+        "It depends"
+      ],
+      "answerIndex": 0,
+      "feedbackCorrect": "Yes: centerX, centerY, radius.",
+      "feedbackIncorrect": "Circle needs 3 numbers: centerX, centerY, radius."
+    }
+  ]
+}
