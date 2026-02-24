@@ -14,6 +14,8 @@ export function FlashcardsView(section) {
 
     // Only show the canvas preview when revealed.
     const drawables = showDef ? parseDrawablesFromExample(c.example) : [];
+    const guide = showDef ? parseConceptGuideFromExample(c.example) : null;
+    const hasPreview = drawables.length || guide;
 
     el.innerHTML = `
       <div class="flashcard">
@@ -21,13 +23,13 @@ export function FlashcardsView(section) {
         <div class="flashcard__def">${showDef ? escapeHtml(c.definition) : '<span class="small">(Click Reveal)</span>'}</div>
         ${showDef && c.example ? `<div class="hr"></div><div class="code">${escapeHtml(c.example)}</div>` : ''}
 
-        ${showDef && c.example && !drawables.length ? `
+        ${showDef && c.example && !hasPreview ? `
           <div class="preview">
-            <div class="preview__title">No shape preview for this card (it may be a concept-only card).</div>
+            <div class="preview__title">No preview available for this card.</div>
           </div>
         ` : ''}
 
-        ${showDef && drawables.length ? `
+        ${showDef && hasPreview ? `
           <div class="preview">
             <div class="preview__title">400×400 Canvas Preview (0,0 is top-left)</div>
             <canvas class="canvas400" width="400" height="400" data-preview="canvas"></canvas>
@@ -43,9 +45,12 @@ export function FlashcardsView(section) {
       </div>
     `;
 
-    if (drawables.length) {
+    if (hasPreview) {
       const canvas = el.querySelector('canvas[data-preview="canvas"]');
-      if (canvas) drawPreview(canvas, drawables);
+      if (canvas) {
+        if (guide) drawConceptGuide(canvas, guide);
+        else drawPreview(canvas, drawables);
+      }
     }
 
     el.querySelector('[data-action="prev"]').onclick = () => {
@@ -140,6 +145,31 @@ function parseDrawablesFromExample(example) {
   }
 
   return drawables;
+}
+
+function parseConceptGuideFromExample(example) {
+  if (!example) return null;
+  const text = String(example);
+
+  // Detect width concept cards like:
+  // leftX=50, rightX=350
+  const mW = text.match(/leftX\s*=\s*(\d+)[^\d]+rightX\s*=\s*(\d+)/);
+  if (mW) {
+    const leftX = clampNum(Number(mW[1]));
+    const rightX = clampNum(Number(mW[2]));
+    return { kind: 'width', leftX, rightX };
+  }
+
+  // Detect height concept cards like:
+  // topY=50, bottomY=150
+  const mH = text.match(/topY\s*=\s*(\d+)[^\d]+bottomY\s*=\s*(\d+)/);
+  if (mH) {
+    const topY = clampNum(Number(mH[1]));
+    const bottomY = clampNum(Number(mH[2]));
+    return { kind: 'height', topY, bottomY };
+  }
+
+  return null;
 }
 
 function parsePropsFromArgs(extraArgs) {
@@ -296,6 +326,97 @@ function stripQuotes(s) {
     return t.slice(1, -1);
   }
   return t;
+}
+
+function drawConceptGuide(canvas, guide) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // Base canvas
+  ctx.clearRect(0, 0, 400, 400);
+  ctx.fillStyle = 'rgba(255,255,255,0.02)';
+  ctx.fillRect(0, 0, 400, 400);
+
+  // Grid every 50
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x <= 400; x += 50) {
+    ctx.beginPath();
+    ctx.moveTo(x + 0.5, 0);
+    ctx.lineTo(x + 0.5, 400);
+    ctx.stroke();
+  }
+  for (let y = 0; y <= 400; y += 50) {
+    ctx.beginPath();
+    ctx.moveTo(0, y + 0.5);
+    ctx.lineTo(400, y + 0.5);
+    ctx.stroke();
+  }
+
+  // A demo rectangle to illustrate measurement.
+  const rect = { left: 80, top: 80, w: 240, h: 180 };
+  const right = rect.left + rect.w;
+  const bottom = rect.top + rect.h;
+
+  ctx.strokeStyle = 'rgba(110,168,255,0.9)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(rect.left, rect.top, rect.w, rect.h);
+
+  // Draw measurement arrows
+  ctx.strokeStyle = 'rgba(50,213,131,0.85)';
+  ctx.lineWidth = 2;
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  ctx.font = '13px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+
+  if (guide.kind === 'width') {
+    // horizontal arrow under the rectangle
+    const y = bottom + 30;
+    drawArrow(ctx, rect.left, y, right, y);
+    const width = Math.max(0, guide.rightX - guide.leftX);
+    ctx.fillText(`width = rightX - leftX = ${guide.rightX} - ${guide.leftX} = ${width}`, 10, 24);
+  }
+
+  if (guide.kind === 'height') {
+    // vertical arrow to the right of the rectangle
+    const x = right + 30;
+    drawArrow(ctx, x, rect.top, x, bottom);
+    const height = Math.max(0, guide.bottomY - guide.topY);
+    ctx.fillText(`height = bottomY - topY = ${guide.bottomY} - ${guide.topY} = ${height}`, 10, 24);
+  }
+
+  // Corner labels
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+  ctx.fillText('(0,0)', 6, 14);
+  ctx.fillText('(400,0)', 332, 14);
+  ctx.fillText('(0,400)', 6, 394);
+  ctx.fillText('(400,400)', 318, 394);
+}
+
+function drawArrow(ctx, x0, y0, x1, y1) {
+  ctx.beginPath();
+  ctx.moveTo(x0, y0);
+  ctx.lineTo(x1, y1);
+  ctx.stroke();
+
+  const headLen = 10;
+  const angle = Math.atan2(y1 - y0, x1 - x0);
+  // arrow head at end
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x1 - headLen * Math.cos(angle - Math.PI / 6), y1 - headLen * Math.sin(angle - Math.PI / 6));
+  ctx.lineTo(x1 - headLen * Math.cos(angle + Math.PI / 6), y1 - headLen * Math.sin(angle + Math.PI / 6));
+  ctx.lineTo(x1, y1);
+  ctx.fillStyle = 'rgba(50,213,131,0.85)';
+  ctx.fill();
+
+  // arrow head at start
+  ctx.beginPath();
+  ctx.moveTo(x0, y0);
+  ctx.lineTo(x0 + headLen * Math.cos(angle - Math.PI / 6), y0 + headLen * Math.sin(angle - Math.PI / 6));
+  ctx.lineTo(x0 + headLen * Math.cos(angle + Math.PI / 6), y0 + headLen * Math.sin(angle + Math.PI / 6));
+  ctx.lineTo(x0, y0);
+  ctx.fill();
 }
 
 function drawPreview(canvas, drawables) {
