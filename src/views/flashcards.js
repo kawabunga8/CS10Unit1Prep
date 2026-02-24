@@ -74,101 +74,228 @@ function parseDrawablesFromExample(example) {
 
   const drawables = [];
 
-  // Circle(centerX, centerY, radius, ...)
-  for (const m of text.matchAll(/Circle\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)([^)]*)\)/g)) {
-    const cx = clampNum(Number(m[1]));
-    const cy = clampNum(Number(m[2]));
-    const r = clampNum(Number(m[3]));
-    const props = parseProps(m[4] || '');
+  // Parse function-style draw calls with nested parentheses support (e.g., gradient(...)).
+  for (const call of findCalls(text, 'Circle')) {
+    const args = splitTopLevelArgs(call);
+    if (args.length < 3) continue;
+    const cx = clampNum(Number(args[0]));
+    const cy = clampNum(Number(args[1]));
+    const r = clampNum(Number(args[2]));
+    const props = parsePropsFromArgs(args.slice(3));
     drawables.push({ kind: 'circle', cx, cy, r, props });
   }
 
-  // Rect(left, top, width, height, ...)
-  for (const m of text.matchAll(/Rect\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)([^)]*)\)/g)) {
-    const left = clampNum(Number(m[1]));
-    const top = clampNum(Number(m[2]));
-    const w = clampNum(Number(m[3]));
-    const h = clampNum(Number(m[4]));
-    const props = parseProps(m[5] || '');
+  for (const call of findCalls(text, 'Rect')) {
+    const args = splitTopLevelArgs(call);
+    if (args.length < 4) continue;
+    const left = clampNum(Number(args[0]));
+    const top = clampNum(Number(args[1]));
+    const w = clampNum(Number(args[2]));
+    const h = clampNum(Number(args[3]));
+    const props = parsePropsFromArgs(args.slice(4));
     drawables.push({ kind: 'rect', left, top, w, h, props });
   }
 
-  // Star(centerX, centerY, radius, points, ...)
-  for (const m of text.matchAll(/Star\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)([^)]*)\)/g)) {
-    const cx = clampNum(Number(m[1]));
-    const cy = clampNum(Number(m[2]));
-    const r = clampNum(Number(m[3]));
-    const points = Math.max(3, Number(m[4]));
-    const props = parseProps(m[5] || '');
+  for (const call of findCalls(text, 'Star')) {
+    const args = splitTopLevelArgs(call);
+    if (args.length < 4) continue;
+    const cx = clampNum(Number(args[0]));
+    const cy = clampNum(Number(args[1]));
+    const r = clampNum(Number(args[2]));
+    const points = Math.max(3, Number(args[3]));
+    const props = parsePropsFromArgs(args.slice(4));
     drawables.push({ kind: 'star', cx, cy, r, points, props });
   }
 
-  // Oval(centerX, centerY, width, height, ...)
-  for (const m of text.matchAll(/Oval\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)([^)]*)\)/g)) {
-    const cx = clampNum(Number(m[1]));
-    const cy = clampNum(Number(m[2]));
-    const w = clampNum(Number(m[3]));
-    const h = clampNum(Number(m[4]));
-    const props = parseProps(m[5] || '');
+  for (const call of findCalls(text, 'Oval')) {
+    const args = splitTopLevelArgs(call);
+    if (args.length < 4) continue;
+    const cx = clampNum(Number(args[0]));
+    const cy = clampNum(Number(args[1]));
+    const w = clampNum(Number(args[2]));
+    const h = clampNum(Number(args[3]));
+    const props = parsePropsFromArgs(args.slice(4));
     drawables.push({ kind: 'oval', cx, cy, w, h, props });
   }
 
-  // Line(x1, y1, x2, y2, ...)
-  for (const m of text.matchAll(/Line\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)([^)]*)\)/g)) {
-    const x1 = clampNum(Number(m[1]));
-    const y1 = clampNum(Number(m[2]));
-    const x2 = clampNum(Number(m[3]));
-    const y2 = clampNum(Number(m[4]));
-    const props = parseProps(m[5] || '');
+  for (const call of findCalls(text, 'Line')) {
+    const args = splitTopLevelArgs(call);
+    if (args.length < 4) continue;
+    const x1 = clampNum(Number(args[0]));
+    const y1 = clampNum(Number(args[1]));
+    const x2 = clampNum(Number(args[2]));
+    const y2 = clampNum(Number(args[3]));
+    const props = parsePropsFromArgs(args.slice(4));
     drawables.push({ kind: 'line', x1, y1, x2, y2, props });
   }
 
-  // Label('text', x, y, ...)
-  for (const m of text.matchAll(/Label\s*\(\s*'([^']*)'\s*,\s*(\d+)\s*,\s*(\d+)([^)]*)\)/g)) {
-    const value = m[1];
-    const cx = clampNum(Number(m[2]));
-    const cy = clampNum(Number(m[3]));
-    const props = parseProps(m[4] || '');
+  for (const call of findCalls(text, 'Label')) {
+    const args = splitTopLevelArgs(call);
+    if (args.length < 3) continue;
+    const value = stripQuotes(args[0]);
+    const cx = clampNum(Number(args[1]));
+    const cy = clampNum(Number(args[2]));
+    const props = parsePropsFromArgs(args.slice(3));
     drawables.push({ kind: 'label', value, cx, cy, props });
   }
 
   return drawables;
 }
 
-function parseProps(trailing) {
-  // Very small "best effort" parser for keyword args.
-  // Example: ", fill='dodgerBlue', opacity=80, border='black', borderWidth=2"
+function parsePropsFromArgs(extraArgs) {
+  // Parse keyword args (best effort). Works even if an arg contains nested parens.
+  // Examples:
+  // - fill='dodgerBlue'
+  // - opacity=80
+  // - fill=gradient('dodgerBlue','limeGreen', start='left-top')
   const props = {};
+  for (const raw of extraArgs) {
+    const s = String(raw).trim();
 
-  const fill = trailing.match(/fill\s*=\s*'([^']+)'/);
-  if (fill) props.fill = fill[1];
+    // fill=gradient(...)
+    const grad = s.match(/^fill\s*=\s*gradient\(\s*'([^']+)'\s*,\s*'([^']+)'(?:\s*,\s*start\s*=\s*'([^']+)')?\s*\)\s*$/);
+    if (grad) {
+      props.gradient = { c1: grad[1], c2: grad[2], start: grad[3] || null };
+      continue;
+    }
 
-  const opacity = trailing.match(/opacity\s*=\s*(\d+)/);
-  if (opacity) props.opacity = clamp01to100(Number(opacity[1]));
+    // fill='color'
+    const fill = s.match(/^fill\s*=\s*'([^']+)'\s*$/);
+    if (fill) {
+      props.fill = fill[1];
+      continue;
+    }
 
-  const border = trailing.match(/border\s*=\s*'([^']+)'/);
-  if (border) props.border = border[1];
+    const opacity = s.match(/^opacity\s*=\s*(\d+)\s*$/);
+    if (opacity) {
+      props.opacity = clamp01to100(Number(opacity[1]));
+      continue;
+    }
 
-  const borderWidth = trailing.match(/borderWidth\s*=\s*(\d+)/);
-  if (borderWidth) props.borderWidth = Math.max(1, Number(borderWidth[1]));
+    const border = s.match(/^border\s*=\s*'([^']+)'\s*$/);
+    if (border) {
+      props.border = border[1];
+      continue;
+    }
 
-  const lineWidth = trailing.match(/lineWidth\s*=\s*(\d+)/);
-  if (lineWidth) props.lineWidth = Math.max(1, Number(lineWidth[1]));
+    const borderWidth = s.match(/^borderWidth\s*=\s*(\d+)\s*$/);
+    if (borderWidth) {
+      props.borderWidth = Math.max(1, Number(borderWidth[1]));
+      continue;
+    }
 
-  const dashes = trailing.match(/dashes\s*=\s*(True|False)/);
-  if (dashes) props.dashes = dashes[1] === 'True';
+    const lineWidth = s.match(/^lineWidth\s*=\s*(\d+)\s*$/);
+    if (lineWidth) {
+      props.lineWidth = Math.max(1, Number(lineWidth[1]));
+      continue;
+    }
 
-  const rotateAngle = trailing.match(/rotateAngle\s*=\s*(-?\d+)/);
-  if (rotateAngle) props.rotateAngle = Number(rotateAngle[1]);
+    const dashes = s.match(/^dashes\s*=\s*(True|False)\s*$/);
+    if (dashes) {
+      props.dashes = dashes[1] === 'True';
+      continue;
+    }
 
-  const roundness = trailing.match(/roundness\s*=\s*(\d+)/);
-  if (roundness) props.roundness = clamp01to100(Number(roundness[1]));
+    const rotateAngle = s.match(/^rotateAngle\s*=\s*(-?\d+)\s*$/);
+    if (rotateAngle) {
+      props.rotateAngle = Number(rotateAngle[1]);
+      continue;
+    }
 
-  // gradient('c1','c2', start='left-top')
-  const grad = trailing.match(/fill\s*=\s*gradient\(\s*'([^']+)'\s*,\s*'([^']+)'(?:\s*,\s*start\s*=\s*'([^']+)')?\s*\)/);
-  if (grad) props.gradient = { c1: grad[1], c2: grad[2], start: grad[3] || null };
+    const roundness = s.match(/^roundness\s*=\s*(\d+)\s*$/);
+    if (roundness) {
+      props.roundness = clamp01to100(Number(roundness[1]));
+      continue;
+    }
+
+    const size = s.match(/^size\s*=\s*(\d+)\s*$/);
+    if (size) {
+      props.size = Number(size[1]);
+      continue;
+    }
+
+    const bold = s.match(/^bold\s*=\s*(True|False)\s*$/);
+    if (bold) {
+      props.bold = bold[1] === 'True';
+      continue;
+    }
+
+    const italic = s.match(/^italic\s*=\s*(True|False)\s*$/);
+    if (italic) {
+      props.italic = italic[1] === 'True';
+      continue;
+    }
+
+    const font = s.match(/^font\s*=\s*'([^']+)'\s*$/);
+    if (font) {
+      props.font = font[1];
+      continue;
+    }
+  }
 
   return props;
+}
+
+function findCalls(text, fnName) {
+  const calls = [];
+  const needle = fnName + '(';
+  let i = 0;
+  while (i < text.length) {
+    const start = text.indexOf(needle, i);
+    if (start === -1) break;
+    let j = start + needle.length;
+    let depth = 1;
+    let inSingleQuote = false;
+
+    for (; j < text.length; j++) {
+      const ch = text[j];
+      if (ch === "'" && text[j - 1] !== '\\') inSingleQuote = !inSingleQuote;
+      if (inSingleQuote) continue;
+      if (ch === '(') depth++;
+      if (ch === ')') depth--;
+      if (depth === 0) {
+        const inside = text.slice(start + needle.length, j);
+        calls.push(inside);
+        i = j + 1;
+        break;
+      }
+    }
+    if (depth !== 0) break; // unbalanced
+  }
+  return calls;
+}
+
+function splitTopLevelArgs(argString) {
+  const args = [];
+  let cur = '';
+  let depth = 0;
+  let inSingleQuote = false;
+  for (let i = 0; i < argString.length; i++) {
+    const ch = argString[i];
+    if (ch === "'" && argString[i - 1] !== '\\') inSingleQuote = !inSingleQuote;
+
+    if (!inSingleQuote) {
+      if (ch === '(') depth++;
+      if (ch === ')') depth = Math.max(0, depth - 1);
+      if (ch === ',' && depth === 0) {
+        args.push(cur.trim());
+        cur = '';
+        continue;
+      }
+    }
+
+    cur += ch;
+  }
+  if (cur.trim()) args.push(cur.trim());
+  return args;
+}
+
+function stripQuotes(s) {
+  const t = String(s).trim();
+  if ((t.startsWith("'") && t.endsWith("'")) || (t.startsWith('"') && t.endsWith('"'))) {
+    return t.slice(1, -1);
+  }
+  return t;
 }
 
 function drawPreview(canvas, drawables) {
